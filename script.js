@@ -1,20 +1,17 @@
-//complete this code
 class Person {
-	 constructor(name, age) {
+  constructor(name, age) {
     this._name = name;
     this._age = age;
   }
 
-	 get name() {
+  get name() {
     return this._name;
   }
 
-  set age(age) {
-    this._age = age;
+  set age(value) {
+    this._age = value;
   }
-	}
-  
-
+}
 
 class Student extends Person {
   study() {
@@ -28,16 +25,38 @@ class Teacher extends Person {
   }
 }
 
+// Your Cypress test cases...
 
-let student = new Student("John", 25);
-student.study(); 
-let student1 = new Student("Alice", 25);
-student1.study(); 
 
-let teacher = new Teacher("John", 40);
-teacher.teach(); 
-let teacher1 = new Teacher("Alice", 40);
-teacher1.teach(); 
+
+
+describe("Person, Student, and Teacher", () => {
+  it("should log the correct messages when a student studies", () => {
+    cy.visit(baseUrl + "/main.html");
+    cy.window().then((win) => {
+      cy.stub(win.console, "log").as("consoleLog");
+      const Student = win.Student;
+      const student = new Student("John", 30);
+      expect(student.name).to.equal("John");
+      student.study();
+      cy.get("@consoleLog").should("be.calledWith", "John is studying.");
+    });
+  });
+
+  it("should log the correct messages when a teacher teaches", () => {
+    cy.visit(baseUrl + "/main.html");
+    cy.window().then((win) => {
+      cy.stub(win.console, "log").as("consoleLog");
+      const Teacher = win.Teacher;
+      const teacher = new Teacher("Alice", 30);
+      expect(teacher.name).to.equal("Alice");
+      teacher.teach();
+      cy.get("@consoleLog").should("be.calledWith", "Alice is teaching.");
+    });
+  });
+});
+
+
 
 // Do not change the code below this line
 window.Person = Person;
