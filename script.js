@@ -28,6 +28,17 @@ class Teacher extends Person {
   }
 }
 
+
+let student = new Student("John", 25);
+student.study(); 
+let student1 = new Student("Alice", 25);
+student1.study(); 
+
+let teacher = new Teacher("John", 40);
+teacher.teach(); 
+let teacher1 = new Teacher("Alice", 40);
+teacher1.teach(); 
+
 // Do not change the code below this line
 window.Person = Person;
 window.Student = Student;
