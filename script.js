@@ -8,6 +8,10 @@ class Person {
     return this._name;
   }
 
+  get age() {
+    return this._age;
+  }
+
   set age(value) {
     this._age = value;
   }
@@ -24,37 +28,6 @@ class Teacher extends Person {
     console.log(`${this.name} is teaching.`);
   }
 }
-
-// Your Cypress test cases...
-
-
-
-
-describe("Person, Student, and Teacher", () => {
-  it("should log the correct messages when a student studies", () => {
-    cy.visit(baseUrl + "/main.html");
-    cy.window().then((win) => {
-      cy.stub(win.console, "log").as("consoleLog");
-      const Student = win.Student;
-      const student = new Student("John", 30);
-      expect(student.name).to.equal("John");
-      student.study();
-      cy.get("@consoleLog").should("be.calledWith", "John is studying.");
-    });
-  });
-
-  it("should log the correct messages when a teacher teaches", () => {
-    cy.visit(baseUrl + "/main.html");
-    cy.window().then((win) => {
-      cy.stub(win.console, "log").as("consoleLog");
-      const Teacher = win.Teacher;
-      const teacher = new Teacher("Alice", 30);
-      expect(teacher.name).to.equal("Alice");
-      teacher.teach();
-      cy.get("@consoleLog").should("be.calledWith", "Alice is teaching.");
-    });
-  });
-});
 
 
 
